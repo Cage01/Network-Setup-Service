@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31205.134
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Network Adaptation", "Network Adaptation\Network Adaptation.csproj", "{54C2901B-4E63-4AEF-90C1-3F01E5C4D5A6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{54C2901B-4E63-4AEF-90C1-3F01E5C4D5A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54C2901B-4E63-4AEF-90C1-3F01E5C4D5A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54C2901B-4E63-4AEF-90C1-3F01E5C4D5A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54C2901B-4E63-4AEF-90C1-3F01E5C4D5A6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C970618F-7BEA-4B49-A1B7-3D17ED0E0190}
+	EndGlobalSection
+EndGlobal
