@@ -22,6 +22,8 @@ namespace Network_Adaptation
         bool doActivate = false;
         bool isActivated = false;
 
+        ObjectQuery query = new ObjectQuery("SELECT * FROM Win32_NetworkAdapter");
+
         public Service1()
         {
             InitializeComponent();
@@ -29,7 +31,6 @@ namespace Network_Adaptation
 
         protected override void OnStart(string[] args)
         {
-            var query = new ObjectQuery("SELECT * FROM Win32_NetworkAdapter");
             using (var searcher = new ManagementObjectSearcher(query))
             {
                 var queryCollection = searcher.Get();
@@ -52,6 +53,8 @@ namespace Network_Adaptation
                     }
                     catch (NullReferenceException e) {  /* Do Nothing */ }
                 }
+
+                searcher.Dispose();
             }
 
             timer.Elapsed += new ElapsedEventHandler(OnElapsedTime);
@@ -61,45 +64,44 @@ namespace Network_Adaptation
 
         private void OnElapsedTime(object source, ElapsedEventArgs e)
         {
-            var query = new ObjectQuery("SELECT * FROM Win32_NetworkAdapter");
             using (var searcher = new ManagementObjectSearcher(query))
             {
-                var queryCollection = searcher.Get();
 
-                foreach (ManagementObject m in queryCollection)
+                foreach (ManagementObject m in searcher.Get())
                 {
 
                     string name = m["Name"].ToString();
-                
+
                     if (name == WIFI_NAME)
                     {
                         try
                         {
                             bool wifiEnabled = Boolean.Parse(m["NetEnabled"].ToString());
-                            
 
-                            if(isActivated && wifiEnabled)
+
+                            if (isActivated && wifiEnabled)
                             {
                                 doActivate = false;
                             }
 
-                        } catch(NullReferenceException ex)
+                        }
+                        catch (NullReferenceException ex)
                         {
                             doActivate = true;
                         }
                     }
-                
+
                     else if (name == ETHERNET_NAME)
                     {
                         try
                         {
-                            if(doActivate && !isActivated)
+                            if (doActivate && !isActivated)
                             {
                                 m.InvokeMethod("Enable", null);
                                 isActivated = true;
                             }
 
-                            if(!doActivate && isActivated)
+                            if (!doActivate && isActivated)
                             {
                                 m.InvokeMethod("Disable", null);
                                 isActivated = false;
@@ -112,7 +114,11 @@ namespace Network_Adaptation
                     }
 
                 }
+
+                searcher.Dispose();
             }
+
+            GC.Collect();
         }
 
         protected override void OnStop()
